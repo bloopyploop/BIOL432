@@ -26,6 +26,7 @@ output: html_document
 library(dplyr)
 ```
 
+<<<<<<< HEAD
 
 ### 2. Wrangling Data 
 
