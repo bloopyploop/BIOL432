@@ -1,0 +1,45 @@
+---
+title: "Assignment 4 - Regex"
+author: "Cecilia Ho"
+date: "01/02/2022"
+output: html_document
+---
+
+## Project Info 
+
+**Name:** "Cecilia Ho"
+
+**Student ID:** "20068106"
+
+**Date:** "Feb 1st 2022"
+
+**GitHub UserName:** "bloopyploop"
+
+**GitHub Link:** "https://github.com/bloopyploop/BIOL432.git"
+
+
+---
+
+### 1. Loading Packages
+
+```{r}
+library(dplyr)
+```
+
+
+### 2. Wrangling Data 
+
+```{r}
+MData <- read.csv("InputData/measurements.csv") %>% # Importing .csv file
+  mutate(Sp = sub("(\\w)(\\w+)","\\1\\.", Organism), Organism = NULL, .before = Limb.width) #Shortening genus name, removing Organism column, moving Sp column to where Organism column was
+
+MData
+```
+
+
+### 3. Saving New Dataset
+
+```{r}
+write.csv(MData, file.path("Output/", "MeasShort.csv"), row.names = F)
+```
+
