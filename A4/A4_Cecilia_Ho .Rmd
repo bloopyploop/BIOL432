@@ -3,8 +3,8 @@ title: "Assignment 4 - Regex"
 author: "Cecilia Ho"
 date: "01/02/2022"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ## Project Info 
@@ -31,8 +31,9 @@ library(dplyr)
 
 ### 2. Wrangling Data 
 
+
 ```{r}
-MData <- read.csv("InputData/measurements.csv") %>% # Importing .csv file
+MData <- read.csv("~/Desktop/Uni/Winter 2021/Biol 432/BIOL432/A4/measurements.csv") %>% # Importing .csv file
   mutate(Sp = sub("(\\w)(\\w+)","\\1\\.", Organism), Organism = NULL, .before = Limb.width) #Shortening genus name, removing Organism column, moving Sp column to where Organism column was
 
 MData
@@ -41,5 +42,5 @@ MData
 ### 3. Saving New Dataset
 
 ```{r}
-write.csv(MData, file.path("Output/", "MeasShort.csv"), row.names = F)
+write.csv(MData, file.path("~/Desktop/Uni/Winter 2021/Biol 432/BIOL432/", "MeasShort.csv"), row.names = F)
 ```
