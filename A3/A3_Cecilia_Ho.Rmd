@@ -1,0 +1,88 @@
+---
+title: "Assignment 3 - Reproducibility"
+author: "Cecilia Ho"
+date: "26/01/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## Project Info 
+
+**Name:** "Cecilia Ho"
+
+**Student ID:** "20068106
+
+**Date:** "Jan 26th 2022"
+
+**GitHub UserName:** "bloopyploop"
+
+**GitHub Link:** "https://github.com/bloopyploop/BIOL432_A3.git"
+
+---
+
+### 1. Loading Packages
+
+```{r}
+library(dplyr)
+```
+
+### 2. Wrangling Data 
+
+```{r}
+Fallo_Data<- read.csv("InputData/FallopiaData.csv") %>%
+  filter(Total >= 60) %>% # Remove rows with 'Total' biomass < 60
+  select(Total, Taxon, Scenario, Nutrients) %>% # Reorder and remove all other columns
+  mutate(TotalG = Total/1000, .before = Taxon, Total = NULL) # Make new column Total G which converts Total from mg to g and replaces Total
+
+Fallo_Data
+```
+
+#### Creating Custom Function  
+
+```{r}
+my.function <- function(dataframe = NULL, column = NULL, method = NULL){
+  if(method == "Average"){
+    return(mean(dataframe[, column]))} # If string2 is Average, calculate mean of column named in vector1
+  if(method == "Sum"){
+    return(sum(dataframe[, column]))} # If string2 is Sum, calculate sum of column named in vector1
+  if(method == "Observation"){
+    return(nrow(dataframe[, !is.na(column)]))} # If string2 is Observations, count number of columns in vector1
+  else{
+  print("ERROR") # If string2 is anything else, output Error
+  }
+} 
+
+# Column is input 1, a vector of data to process.
+# Method is input 2, a string that defines what calculation to perform.
+```
+
+#### Testing Custom Function 
+
+```{r}
+Taxon_Obv <- my.function(Fallo_Data, "Taxon", "Observation") # Using function to count total number of observations in the Taxon column
+
+Taxon_Obv
+```
+
+
+```{r}
+Avg_TotalG_LowNut <- my.function(Fallo_Data %>% filter(Nutrients == "low"), "TotalG", "Average") # Using function to calculate average TotalG for low Nutrient concentrations
+
+Avg_TotalG_LowNut
+```
+
+
+```{r}
+Avg_TotalG_HighNut <- my.function(Fallo_Data %>% filter(Nutrients == "high"), "TotalG", "Average") # Using function to calculate average TotalG for high Nutrient concentrations
+
+Avg_TotalG_HighNut
+```
+
+
+#### Saving New Data
+
+```{r}
+write.csv(Fallo_Data, file.path("Output/", "WrangledData.csv"), row.names = F)
+```
+
