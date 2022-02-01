@@ -5,8 +5,8 @@ date: "01/02/2022"
 output: html_document
 ---
 
-## Project Info 
-
+  ## Project Info 
+  
 **Name:** "Cecilia Ho"
 
 **Student ID:** "20068106"
@@ -19,14 +19,13 @@ output: html_document
 
 
 ---
-
-### 1. Loading Packages
-
+  
+  ### 1. Loading Packages
+  
 ```{r}
 library(dplyr)
 ```
 
-<<<<<<< HEAD
 
 ### 2. Wrangling Data 
 
@@ -43,4 +42,3 @@ MData
 ```{r}
 write.csv(MData, file.path("Output/", "MeasShort.csv"), row.names = F)
 ```
-
